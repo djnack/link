@@ -1,6 +1,8 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\CreateController;
+use App\Http\Controllers\Api\V1\CreateGroupController;
+use App\Http\Controllers\Api\V1\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::prefix('v1')->group(
+    function () {
+        Route::post('register', [LoginController::class, 'register']);
+    }
+);
+Route::middleware(['token'])->prefix('v1')->group(
+    function () {
+        Route::post('create', [CreateController::class, 'index']);
+        Route::post('create_group', [CreateGroupController::class, 'index']);
+    }
+);
