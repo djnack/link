@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\LinkController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('link/{slog}', [LinkController::class,'index'])->name('link_slog');
+Route::get('link/{slog}', [LinkController::class, 'index'])->name('link_slog');
+
+Route::get('/foo', function () {
+    dd(Artisan::call('migrate', []));
+});
