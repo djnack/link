@@ -17,6 +17,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('link/{slog}', [LinkController::class, 'index'])->name('link_slog');
 
-Route::get('/foo', function () {
+Route::get('/migrate', function () {
     dd(Artisan::call('migrate', []));
 });
