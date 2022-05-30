@@ -27,16 +27,12 @@ class CreateController extends Controller
             var_dump($random);
         } while (Link::where('slog', $random)->first('slog'));
 
-        $ip = $request->ip();
-        $user_agent = $request->header('user-agent');
 
         $data = new Link;
         $data->url = $request->url;
         $data->slog = $random;
         $data->user_id = $request->user_id;
-        $data->ip = $ip;
         $data->api = 1;
-        $data->user_agent = $user_agent;
         $data->save();
 
         $url = explode('checkin', route('link_slog', 'checkin'))[0];

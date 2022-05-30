@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLinksTable extends Migration
+class CreateCallApisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class CreateLinksTable extends Migration
      */
     public function up()
     {
-        Schema::create('links', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('call_apis', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id');
-            $table->text('url');
-            $table->string('slog')->unique();
-            $table->boolean('api')->nullable();
-            $table->integer('group')->nullable();
-            $table->integer('view')->default(0);
+            $table->string('ip',40);
+            $table->string('user_agent');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -34,6 +31,6 @@ class CreateLinksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('links');
+        Schema::dropIfExists('call_apis');
     }
 }

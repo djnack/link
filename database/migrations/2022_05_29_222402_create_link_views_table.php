@@ -15,7 +15,7 @@ class CreateLinkViewsTable extends Migration
     {
         Schema::create('link_views', function (Blueprint $table) {
             $table->unsignedBigInteger('link_id');
-            $table->string('ip');
+            $table->string('ip',40);
             $table->string('referer')->nullable();
             $table->string('user_agent');
             $table->timestamps();

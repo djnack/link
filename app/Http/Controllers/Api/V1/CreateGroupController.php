@@ -38,8 +38,7 @@ class CreateGroupController extends Controller
         $urlIn = explode('checkin', route('link_slog', 'checkin'))[0];
         $return_url = [];
 
-        $ip = $request->ip();
-        $user_agent = $request->header('user-agent');
+        $latest_id = Link::latest('id')->first('id')->id+1;
 
         foreach ($urls as $url) {
             do {
@@ -51,9 +50,8 @@ class CreateGroupController extends Controller
             $data->url = $url;
             $data->slog = $random;
             $data->user_id = $request->user_id;
-            $data->ip = $ip;
             $data->api = 1;
-            $data->user_agent = $user_agent;
+            $data->group = $latest_id;
             $data->save();
 
 
