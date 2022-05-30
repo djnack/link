@@ -1141,6 +1141,17 @@ class Blueprint
     /**
      * Add nullable creation and update timestamps to the table.
      *
+     * @param  int  $precision
+     * @return void
+     */
+    public function created_at($precision = 0)
+    {
+        $this->timestamp('created_at', $precision)->nullable();
+    }
+
+    /**
+     * Add nullable creation and update timestamps to the table.
+     *
      * Alias for self::timestamps().
      *
      * @param  int  $precision

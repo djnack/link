@@ -17,7 +17,7 @@ class CreateCallApisTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('ip',40);
             $table->string('user_agent');
-            $table->timestamps();
+            $table->created_at();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 

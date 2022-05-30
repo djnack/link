@@ -41,6 +41,7 @@ class Token
         $data->user_id = $id;
         $data->ip = $ip;
         $data->user_agent = $user_agent;
+        $data->created_at = now();
         $data->save();
 
         return $next($request);
