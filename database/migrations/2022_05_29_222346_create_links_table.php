@@ -17,7 +17,7 @@ class CreateLinksTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->text('url');
-            $table->string('slog')->unique();
+            $table->string('slog',10)->unique();
             $table->boolean('api')->nullable();
             $table->integer('group')->nullable();
             $table->integer('view')->default(0);

@@ -26,24 +26,28 @@ class Token
 
         $data = User::where('token', $token)->first(['id', 'token']);
 
-        $ip = $request->ip();
-        $id = $data->id;
-        $user_agent = $request->header('user-agent');
+        if ($data) {
+            $ip = $request->ip();
+            $id = $data->id;
+            $user_agent = $request->header('user-agent');
 
-        if ($data == null) {
-            return response()->json(['data' => ['message' => 'Token invalid.']], 400);
-        } else if ($data->token !== $token) {
-            return response()->json(['data' => ['message' => 'Token invalid.']], 400);
+            if ($data == null) {
+                return response()->json(['data' => ['message' => 'Token invalid.']], 400);
+            } else if ($data->token !== $token) {
+                return response()->json(['data' => ['message' => 'Token invalid.']], 400);
+            }
+            $request['user_id'] = $id;
+
+            $data = new CallApi;
+            $data->user_id = $id;
+            $data->ip = $ip;
+            $data->user_agent = $user_agent;
+            $data->created_at = now();
+            $data->save();
+
+            return $next($request);
         }
-        $request['user_id'] = $id;
+        return response()->json(['data' => ['message' => 'Error server.']], 500);
 
-        $data = new CallApi;
-        $data->user_id = $id;
-        $data->ip = $ip;
-        $data->user_agent = $user_agent;
-        $data->created_at = now();
-        $data->save();
-
-        return $next($request);
     }
 }

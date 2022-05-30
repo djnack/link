@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use function PHPUnit\Framework\matches;
+
 class CreateController extends Controller
 {
     public function index(Request $request)
@@ -36,6 +38,10 @@ class CreateController extends Controller
         $data->save();
 
         $url = explode('checkin', route('link_slog', 'checkin'))[0];
+
+        $pattern = '/^http(s)?(:)?(\/\/)?|(\/\/)?(www\.)?/';
+        $url = preg_replace($pattern, "", $url);
+
 
         return response(['data' => ['url' => $url . $random]], 201);
     }
